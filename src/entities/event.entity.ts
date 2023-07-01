@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Organization } from './organization.entity';
 import { User } from './user.entity';
+import { Tag } from './tag.entity';
 
 @Entity({ name: 'events' })
 export class Event {
@@ -24,8 +25,9 @@ export class Event {
   @JoinTable() // Add the JoinTable decorator to specify the join table for the Many-to-Many relationship
   participants: User[];
 
-  @Column({ default: 'Event tags', nullable: false })
-  tags: string;
+  @ManyToMany(() => Tag, (tag) => tag.events)
+  @JoinTable()
+  tags: Tag[];
 
   @Column({ default: 'Event description', nullable: false })
   description: string;

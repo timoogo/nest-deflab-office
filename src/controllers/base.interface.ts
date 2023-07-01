@@ -6,5 +6,5 @@ export interface BaseInterface<T> {
   create(data: Partial<T>): Promise<T>;
   update(id: number, data: Partial<T>): Promise<T>;
 
-  delete(id: number): Promise<DeleteResult>;
+  delete(id: number): Promise<DeleteResult> | void;
 }
