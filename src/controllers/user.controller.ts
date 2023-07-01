@@ -11,36 +11,38 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { User } from '../entities/user.entity';
+import { BaseInterface } from './base.interface';
+import { DeleteResult } from 'typeorm';
 
 @Controller('users')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UserController implements BaseInterface<User> {
+  constructor(private readonly service: UserService) {}
 
   @Get()
-  getAllUsers(): Promise<User[]> {
-    return this.userService.getUsers();
+  getAll(): Promise<User[]> {
+    return this.service.getUsers();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: number): Promise<User> {
-    return this.userService.getUserById(id);
+  getById(@Param('id') id: number): Promise<User> {
+    return this.service.getUserById(id);
   }
 
   @Post()
-  createUser(@Body() userData: Partial<User>): Promise<User> {
-    return this.userService.createUser(userData);
+  create(@Body() userData: Partial<User>): Promise<User> {
+    return this.service.createUser(userData);
   }
 
   @Put(':id')
-  updateUser(
+  update(
     @Param('id') id: number,
     @Body() userData: Partial<User>,
   ): Promise<User> {
-    return this.userService.updateUser(id, userData);
+    return this.service.updateUser(id, userData);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number): Promise<void> {
-    return this.userService.deleteUser(id);
+  delete(id: number): Promise<DeleteResult> {
+    return this.service.deleteUser(id);
   }
 }

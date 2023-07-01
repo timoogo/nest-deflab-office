@@ -1,36 +1,43 @@
 // src/organization/organization.entity.ts
 
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { User } from './user.entity';
 import { Event } from './event.entity';
 
-@Entity({ name: 'organizations'})
+@Entity({ name: 'organizations' })
 export class Organization {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   name: string;
 
-  @Column()
-  legalRepresentative: string;
+  @ManyToOne(() => User, (user) => user.organizations)
+  userRepresentative: User;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   phone: string;
 
-  @ManyToMany(() => User, user => user.organizations)
+  @ManyToMany(() => User, (user) => user.organizations)
   users: User[];
 
-  @OneToMany(() => Event, event => event.organizer)
+  @OneToMany(() => Event, (event) => event.organizer)
   events: Event[];
 
-  @Column()
+  @Column({ nullable: false })
   description: string;
 
-  @Column()
+  @Column({ nullable: false })
   image: string;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })

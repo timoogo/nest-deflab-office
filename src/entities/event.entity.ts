@@ -1,45 +1,51 @@
-// src/event/event.entity.ts
-
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Organization } from './organization.entity';
 import { User } from './user.entity';
 
-@Entity({ name: 'events'})
+@Entity({ name: 'events' })
 export class Event {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: 'Event name', nullable: false })
   name: string;
 
-  @ManyToOne(() => Organization, organizer => organizer.events)
+  @ManyToOne(() => Organization, (organizer) => organizer.events)
   organizer: Organization;
 
-  @ManyToMany(() => User, user => user.events)
+  @ManyToMany(() => User, (user) => user.events)
+  @JoinTable() // Add the JoinTable decorator to specify the join table for the Many-to-Many relationship
   participants: User[];
 
-  @Column()
+  @Column({ default: 'Event tags', nullable: false })
   tags: string;
 
-  @Column()
+  @Column({ default: 'Event description', nullable: false })
   description: string;
 
-  @Column()
+  @Column({ default: 'Event image', nullable: false })
   image: string;
 
-  @Column()
+  @Column({ default: 'Event location', nullable: false })
   location: string;
 
-  @Column()
+  @Column({ default: 'Event type', nullable: false })
   type: string;
 
-  @Column()
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 
-  @Column()
+  @Column({ default: 0, nullable: false })
   duration: number;
 
-  @Column()
+  @Column({ default: 'Event status', nullable: false })
   status: string;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
