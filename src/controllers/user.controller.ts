@@ -38,7 +38,7 @@ export class UserController implements BaseInterface<User> {
     @Param('id') id: number,
     @Body() userData: Partial<User>,
   ): Promise<User> {
-    return this.service.updateUser(id, userData);
+    return this.service.update(id, userData);
   }
 
   @Delete(':id')

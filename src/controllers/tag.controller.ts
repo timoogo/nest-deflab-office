@@ -33,7 +33,7 @@ export class TagController implements BaseInterface<Tag> {
     return this.service.getTagById(id);
   }
   @Put(':id')
-  update(id: number, data: Partial<Tag>): Promise<Tag> {
-    return this.service.updateTag(id, data);
+  update(@Param('id') id: number, @Body() data: Partial<Tag>): Promise<Tag> {
+    return this.service.update(id, data);
   }
 }

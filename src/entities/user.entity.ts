@@ -35,4 +35,8 @@ export class User {
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  // isAdmin: boolean
+  @Column({ nullable: false, default: false })
+  isAdmin: boolean;
 }

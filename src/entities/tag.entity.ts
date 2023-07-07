@@ -16,7 +16,7 @@ export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 'Tag name', nullable: false })
+  @Column({ default: 'Tag name', nullable: false, unique: true })
   name: string;
 
   @Column({
