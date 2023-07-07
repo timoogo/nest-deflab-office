@@ -29,6 +29,6 @@ export class TagService {
   }
 
   async deleteTag(id: number): Promise<DeleteResult> {
-    return this.tagRepository.delete(id);
+    return await this.tagRepository.delete(id);
   }
 }
