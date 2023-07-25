@@ -11,7 +11,7 @@ import { OrganizationService } from '../services/organization.service';
 import { Organization } from '../entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 
-@Controller('organizations')
+@Controller('api/organizations')
 export class OrganizationController {
   constructor(private readonly organizationService: OrganizationService) {}
 

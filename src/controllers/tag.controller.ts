@@ -12,13 +12,17 @@ import { Tag } from '../entities/tag.entity';
 import { TagService } from '../services/tag.service';
 import { DeleteResult } from 'typeorm';
 
-@Controller('tags')
+@Controller('api/tags')
 export class TagController implements BaseInterface<Tag> {
   constructor(private readonly service: TagService) {}
+
+  
   @Post()
-  create(data: Partial<Tag>): Promise<Tag> {
-    return this.service.createTag(data);
+  async create(@Body() tagData: Partial<Tag>): Promise<Tag> {
+    return this.service.createTag(tagData);
   }
+
+
   @Delete(':id')
   delete(id: number): Promise<DeleteResult> {
     return this.service.deleteTag(id);
@@ -35,5 +39,10 @@ export class TagController implements BaseInterface<Tag> {
   @Put(':id')
   update(@Param('id') id: number, @Body() data: Partial<Tag>): Promise<Tag> {
     return this.service.update(id, data);
+  }
+
+  @Get()
+  getResponse(): string {
+    return 'Hello World!';
   }
 }

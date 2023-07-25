@@ -10,7 +10,7 @@ import {
 import { EventService } from '../services/event.service';
 import { Event } from '../entities/event.entity';
 
-@Controller('events')
+@Controller('api/events')
 export class EventController {
   constructor(private readonly service: EventService) {}
 

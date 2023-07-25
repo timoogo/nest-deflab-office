@@ -1,37 +1,24 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { Event } from './event.entity';
-export enum TagCategory {
-  SPECIFIC = 'SPECIFIC',
-  GLOBAL = 'GLOBAL',
-}
 
-export enum TagType {
-  OFFLINE = 'offline',
-  ONLINE = 'online',
-  BOTH = 'both',
-}
+
 
 @Entity()
 export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 'Tag name', nullable: false, unique: true })
-  name: string;
+  @Column({ default: 'unset', nullable: false })
+  tagName: string;
 
-  @Column({
-    type: 'enum',
-    enum: TagCategory,
-    default: TagCategory.SPECIFIC,
-  })
-  tagCategory: TagCategory;
+  @Column({ default: 'unset', nullable: false})
+  tagType: 'online' | 'offline' | 'both' | 'unset';
 
-  @Column({
-    type: 'enum',
-    enum: TagType,
-    nullable: false,
-  })
-  tagType: TagType;
+  @Column({nullable: false, default: 'unset'})
+  tagCategory: string
+
+  @Column({nullable: true})
+  tagColor: string
 
   @ManyToMany(() => Event, (event) => event.tags)
   events: Event[];

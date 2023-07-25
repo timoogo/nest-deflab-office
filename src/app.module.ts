@@ -13,6 +13,7 @@ import { TagModule } from './modules/tag.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
+      keepConnectionAlive: true,
       type: 'mysql',
       host: 'localhost',
       port: 3306,
@@ -21,6 +22,9 @@ import { TagModule } from './modules/tag.module';
       database: 'nest_deflab_office',
       entities: [User, Event, Organization, Tag],
       synchronize: true,
+      migrations: ['src/migration/*.ts'],
+      
+
     }),
     EventModule,
     UserModule,

@@ -14,7 +14,7 @@ import { User } from '../entities/user.entity';
 import { BaseInterface } from './base.interface';
 import { DeleteResult } from 'typeorm';
 
-@Controller('users')
+@Controller('api/users')
 export class UserController implements BaseInterface<User> {
   constructor(private readonly service: UserService) {}
 

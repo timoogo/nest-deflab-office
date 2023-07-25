@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Tag } from '../entities/tag.entity';
 import { DeleteResult, QueryFailedError } from 'typeorm';
 import { TagRepository } from '../repositories/tag.repository';
-
+import { Body } from '@nestjs/common/decorators/http/route-params.decorator';
 @Injectable()
 export class TagService {
   constructor(
@@ -15,44 +15,10 @@ export class TagService {
     private readonly tagRepository: TagRepository,
   ) {}
 
+ 
   async createTag(tagData: Partial<Tag>): Promise<Tag> {
     const tag = this.tagRepository.create(tagData);
-
-    try {
-      return await this.tagRepository.save(tag);
-    } catch (error) {
-      if (
-        error instanceof QueryFailedError &&
-        error.message.includes('Duplicate entry')
-      ) {
-        const duplicateProperties = [];
-        const duplicateValues = [];
-
-        for (const property in tagData) {
-          const value = tagData[property];
-          const existingTag = await this.tagRepository.findOne({
-            where: { [property]: value },
-          });
-
-          if (existingTag) {
-            duplicateProperties.push(property);
-            duplicateValues.push(value);
-          }
-        }
-
-        const errorResponse = {
-          message: 'Duplicate entry',
-          properties: duplicateProperties,
-          values: duplicateValues,
-          statusCode: 409,
-          error: 'Conflict',
-        };
-
-        throw new ConflictException(errorResponse);
-      }
-
-      throw error;
-    }
+    return this.tagRepository.save(tag);
   }
 
   async getTags(): Promise<Tag[]> {
