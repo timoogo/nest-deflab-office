@@ -57,12 +57,12 @@ export class OrganizationService {
   }
 
   getById(id: number): Promise<Organization> {
-    return this.organizationRepository
-      .createQueryBuilder('organization')
-      .leftJoinAndSelect('organization.users', 'users')
-      .where('organization.id = :id', { id })
-      .getOne();
-  }
+    return this.organizationRepository.createQueryBuilder('organization')
+        .leftJoinAndSelect('organization.userRepresentative', 'userRepresentative')
+        .where('organization.id = :id', { id })
+        .getOne();
+}
+
 
   async update(
     id: number,
