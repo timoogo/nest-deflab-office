@@ -13,7 +13,7 @@ import { TagService } from '../services/tag.service';
 import { DeleteResult } from 'typeorm';
 
 @Controller('api/tags')
-export class TagController implements BaseInterface<Tag> {
+export class TagController  {
   constructor(private readonly service: TagService) {}
 
   
@@ -24,8 +24,8 @@ export class TagController implements BaseInterface<Tag> {
 
 
   @Delete(':id')
-  delete(id: number): Promise<DeleteResult> {
-    return this.service.deleteTag(id);
+  delete(@Param('id') id: number): Promise<void> {
+    return this.service.delete(id);
   }
 
   @Get()
@@ -33,8 +33,8 @@ export class TagController implements BaseInterface<Tag> {
     return this.service.getTags();
   }
   @Get(':id')
-  getById(id: number): Promise<Tag> {
-    return this.service.getTagById(id);
+  getById(@Param('id') id: number): Promise<Tag> {
+    return this.service.getById(id);
   }
   @Put(':id')
   update(@Param('id') id: number, @Body() data: Partial<Tag>): Promise<Tag> {

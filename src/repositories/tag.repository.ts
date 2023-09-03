@@ -6,6 +6,7 @@ import { Tag } from '../entities/tag.entity';
 @EntityRepository(Tag)
 export class TagRepository extends Repository<Tag> {
   async delete(id: number): Promise<DeleteResult> {
+    console.log('id', id);
     return await this.createQueryBuilder()
       .delete()
       .where('id = :id', { id })

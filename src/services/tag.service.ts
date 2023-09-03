@@ -6,13 +6,14 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tag } from '../entities/tag.entity';
 import { DeleteResult, QueryFailedError } from 'typeorm';
-import { TagRepository } from '../repositories/tag.repository';
 import { Body } from '@nestjs/common/decorators/http/route-params.decorator';
+import { Repository } from 'typeorm';
+
 @Injectable()
 export class TagService {
   constructor(
     @InjectRepository(Tag)
-    private readonly tagRepository: TagRepository,
+    private readonly tagRepository: Repository<Tag>,
   ) {}
 
  
@@ -25,7 +26,7 @@ export class TagService {
     return this.tagRepository.find();
   }
 
-  async getTagById(id: number): Promise<Tag> {
+  async getById(id: number): Promise<Tag> {
     return this.tagRepository.findOne({ where: { id } });
   }
 
@@ -43,7 +44,7 @@ export class TagService {
       throw error;
     }
   }
-  async deleteTag(id: number): Promise<DeleteResult> {
-    return this.tagRepository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.tagRepository.delete(id);
   }
 }

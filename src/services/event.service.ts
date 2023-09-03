@@ -85,9 +85,9 @@ export class EventService {
     return this.eventRepository.find();
   }
 
-  async getById(id: number): Promise<Event> {
-    return this.eventRepository.findOne({ where: { id } });
-  }
+    async getById(id: number): Promise<Event> {
+      return this.eventRepository.findOne({ where: { id } });
+    }
 
   async update(id: number, eventData: Partial<Event>): Promise<Event> {
     const originalEvent = await this.eventRepository.findOne({
