@@ -10,6 +10,9 @@ import { Event } from './entities/event.entity';
 import { Organization } from './entities/organization.entity';
 import { Tag } from './entities/tag.entity';
 import { TagModule } from './modules/tag.module';
+import { GenericEntityModule } from './modules/tag.module copy';
+import { GenericEntity } from './entities/generic-entity.entity';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -17,10 +20,10 @@ import { TagModule } from './modules/tag.module';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'root',
+      username: 'Theo',
+      password: 't090992',
       database: 'nest_deflab_office',
-      entities: [User, Event, Organization, Tag],
+      entities: [User, Event, Organization, Tag, GenericEntity],
       synchronize: true,
       migrations: ['src/migration/*.ts'],
       
@@ -30,6 +33,7 @@ import { TagModule } from './modules/tag.module';
     UserModule,
     OrganizationModule,
     TagModule,
+    GenericEntityModule,
   ],
   controllers: [AppController],
   providers: [AppService],
